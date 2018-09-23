@@ -1,13 +1,43 @@
 from flask import Flask, Response, request, redirect, render_template, url_for
+from flask_pymongo import PyMongo
+from pymongo import MongoClient
+import json
+from bson import json_util
+from bson.json_util import dumps
 
 app = Flask(__name__)
 
-@app.route('/', methods = ['GET','POST'])
-#def hello_world():
-#	return 'Hello World!'
+app.config['MONGO_DBNAME'] = 'textq-a'
+app.config['MONGO_URI'] = 'mongodb://user1:green1@ds163402.mlab.com:63402/textq-a'
 
+mongo = PyMongo(app)
+
+@app.route('/display')
+def display():
+    #nodes = mongo.db.collection.find()
+    #json_nodes = []
+    #for node in nodes:
+    #    json_nodes.append(node)
+    #json_nodes = json.dumps(json_nodes, default = json_util.default)
+    #return json_nodes
+
+    connection = MongoClient('mongodb://user1:green1@ds163402.mlab.com:63402/textq-a')
+    collection = connection['textq-a']['text-input']
+    nodes = collection.find()
+    #l =  list(nodes)
+    #json_nodes = json.dumps(nodes, default = json_util.default)
+    #return json_nodes
+    json_nodes = []
+    for node in nodes:
+        json_nodes.append(node)
+    json_nodes = json.dumps(json_nodes, default = json_util.default)
+    return json_nodes
+
+@app.route('/', methods = ['GET','POST'])
 def index():
     return render_template("page1.html")
+
+
 
 @app.route('/ml.html', methods = ['GET', 'POST'])
 def machine_learning():
@@ -41,7 +71,45 @@ def text_CI():
 
 @app.route('/textI.html', methods = ['GET', 'POST'])
 def text_input():
-    return render_template("textI.html")
+    connection = MongoClient('mongodb://user1:green1@ds163402.mlab.com:63402/textq-a')
+    collection = connection['textq-a']['text-input']
+    nodes = collection.find({}, {'_id': False})
+    #l = list(nodes)
+    #json_nodes = json.dumps(l, default=json_util.default)
+    #return json_nodes
+    json_nodes = []
+    for node in nodes:
+        json_nodes.append(node)
+    json_nodes = json.dumps(json_nodes, default=json_util.default)
+    return render_template("textI.html", data = json_nodes)
+
+@app.route('/data')
+def data():
+    connection = MongoClient('mongodb://user1:green1@ds163402.mlab.com:63402/textq-a')
+    collection = connection['textq-a']['text-input']
+    nodes = collection.find({}, {'_id': False})
+    # l = list(nodes)
+    # json_nodes = json.dumps(l, default=json_util.default)
+    # return json_nodes
+    json_nodes = []
+    for node in nodes:
+        json_nodes.append(node)
+    json_nodes = json.dumps(json_nodes, default=json_util.default)
+    connection.close()
+    return json_nodes
+
+@app.route('/update')
+def update():
+    connection = MongoClient('mongodb://user1:green1@ds163402.mlab.com:63402/textq-a')
+    collection = connection['textq-a']['text-input']
+
+    myquery = {"name": "Son of A"}
+    newvalues = {"$set": {"name": "SA"}}
+
+    collection.update_one(myquery, newvalues)
+
+    return 'Records updated succesfully'
+
 
 @app.route('/text_context.html', methods = ['GET', 'POST'])
 def text_context():
