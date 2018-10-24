@@ -99,7 +99,7 @@
                         <p>Text Command Context Model</p>
                     </a>
                 </li>
-              
+
                 <li class="active-pro">
                     <a href="upgrade.html">
                         <i class="ti-export"></i>
@@ -134,7 +134,7 @@
                               <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                     <i class="ti-plus"></i>
                                     <!--<p class="notification">5</p>-->
-                                    <p>New</p>
+                                    <p id="New" onclick="addTag()">New</p>
                                     <b class="caret"></b>
                               </a>
                               <ul class="dropdown-menu">
@@ -144,9 +144,9 @@
                                  <!--<label for="exampleFormControlFile1">Upload File</label> <input type="file" class="form-control-file" id="exampleFormControlFile1">-->
                                  <li><label for = "exampleFormControlFile2"> Create New Project</label></li>
                                  <li><label for="exampleFormControlFile1">Upload File</label> <input type="file" class="form-control-file" id="exampleFormControlFile1"></li>
-                                                            
+
                               </ul>
-                        
+
                         <li>
                             <a href="#">
                                 <i class="ti-settings"></i>
@@ -159,21 +159,21 @@
             </div>
         </nav>
       <div class = "content">
-      
+
       <!--	<button type="button" class="btn btn-primary active"><span class="glyphicon glyphicon-plus"></span> Create New Project</button>-->
-     
+
     <!--  <a class="btn btn-secondary pull-right" href="#">
                     <i class="fa fa-plus" aria-hidden="true"></i> New</a>
                 </div>
-                   
+
                     <a href = "Project1.html" class="btn btn-primary"><i class="oi oi-folder"></i> Project 1 - Voice</button>
                     <!--<a href = "Project2.html" class="btn btn-primary-spacing"><i class="oi oi-folder"></i> Project 2 - Text</button>-->
                     <!--<button class="btn btn-primary-spacing"><i class="oi oi-folder"></i> Project 2 - Text</button>-->
-              
+
       	<!--<span class="oi oi-folder" title="person" aria-hidden="true"></span>-->
       	<div class="container-fluid">
   <div class="row">
-  		<div class="col-md-6">
+  		<div class="col-md-6" id="myDiv">
           <!-- <input class="form-control custom-input-width pull-left" type="text-->
           <a href="Project1.html" class="btn btn-secondary dropdown-toggle"><i class = "oi oi-folder"></i>Project 1 - Voice</a>
           <a href="Project2.html" class="btn btn-secondary"><i class = "oi oi-folder"></i>Project 2 - Text</a>
@@ -181,7 +181,7 @@
           <a class="btn btn-secondary" href="Project1.html" role="button"><i class = "oi oi-folder"></i> Project 2- Text</a>
 		  <!--<a href = "Project1.html" class="button"><i class="oi oi-folder"></i> Project 1 - Voice</button>-->
         </div>
-        
+
 			<!--<button type="button" class="btn btn-danger custom-button-width .navbar-right">z3</button>-->
     	</div>
   </div>
@@ -189,8 +189,8 @@
 
       </div>
 
-       
-       
+
+
         <footer class="footer">
             <div class="container-fluid">
                 <nav class="pull-left">
@@ -213,7 +213,7 @@
                         </li>-->
                     </ul>
                 </nav>
-                
+
                 <!--<div class="copyright pull-right">
                     &copy; <script>document.write(new Date().getFullYear())</script>, made with <i class="fa fa-heart heart"></i> by <a href="http://www.creative-tim.com">Creative Tim</a>
                 </div>-->
@@ -224,6 +224,18 @@
     </div>
 </div>
 
+<script>
+
+ function addTag() {
+var mydiv = document.getElementById("myDiv");
+var aTag = document.createElement('a');
+aTag.setAttribute('class',"btn btn-secondary");
+aTag.setAttribute('href',"Sample.html");
+aTag.innerHTML = '<i class = "oi oi-folder">"Sample Project"</i>';
+mydiv.appendChild(aTag);
+ }
+
+</script>
 
 </body>
 
@@ -248,6 +260,8 @@
 
     <!-- Paper Dashboard DEMO methods, don't include it in your project! -->
     <script src="assets/js/demo.js"></script>
+
+
 
 
 </html>
